@@ -1,0 +1,9 @@
+
+{
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^10.6.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "mocha-mongodb-done",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^6.2.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.4.4"
+  }
+}

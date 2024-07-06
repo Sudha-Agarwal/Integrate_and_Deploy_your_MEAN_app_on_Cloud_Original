@@ -1,0 +1,16 @@
+{
+  "name": "mocha-mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require test/global-setup.mjs test/**/*.js --timeout 10000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.6.0",
+    "mongoose": "^8.4.4"
+  }
+}
