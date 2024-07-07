@@ -1,0 +1,6 @@
+--reporter dot
+--timeout 10000
+--ignore ignore/**/*.js
+--file test/**/*.js
+
+--require ./test/global-setup-teardown.mjs

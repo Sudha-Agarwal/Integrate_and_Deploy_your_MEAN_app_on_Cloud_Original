@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mocha Tests in Browser with Chai</title>
+    <!-- Include Mocha framework -->
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css">
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <!-- Optionally configure Mocha -->
+    <script>
+        mocha.setup('bdd'); // Setup Mocha to use BDD style syntax
+    </script>
+
+    <!-- Include Chai assertion library as ES module -->
+    <script type="module">
+        import { assert } from 'https://unpkg.com/chai/chai.js';
+        window.assert = assert; // Expose assert globally for use in tests
+    </script>
+
+
+    <!-- Include your test files -->
+    <script src="test/test1.test.mjs" type="module"></script>
+    <!-- Include more test files as needed -->
+
+</head>
+<body>
+    <div id="mocha"></div> <!-- This will display test results -->
+
+    <!-- Run tests programmatically -->
+    <script type="module">
+        // Optionally run tests programmatically
+        mocha.run();
+    </script>
+</body>
+</html>
