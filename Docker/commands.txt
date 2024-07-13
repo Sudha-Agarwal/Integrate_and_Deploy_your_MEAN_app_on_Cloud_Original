@@ -1,0 +1,110 @@
+Using the docker create command will create a new Docker container with the specified docker image.
+
+$ docker create --name <container name> <image name>
+
+To start a stopped container, we can use the docker start command.
+
+$ docker start <container name>
+
+The docker run command will do the work of both “docker create” and “docker start” command. This command will create a new container and run the image in the newly created container.
+
+$ docker run -it --name <container name> <image name>
+
+If we want to pause the processes running inside the container, we can use the “docker pause” command.
+
+$ docker pause <container name>
+
+To unpause the container, use “docker unpause” command.
+
+$ docker unpause <container name>
+
+Stop Container
+Stopping a running Container means to stop all the processes running in that Container. Stopping does not mean killing or ending the process.
+
+$ docker stop <container name>
+
+We can stop all the containers using a single command. In our case, 4 containers are running which you can see using the docker ps command.
+
+To stop all the running containers we can use the following command:
+
+$ docker stop $(docker container ls –aq)
+
+Delete Container
+Removing or deleting the container means destroying all the processes running inside the container and then deleting the Container. It’s preferred to destroy the container, only if present in the stopped state instead of forcefully destroying the running container.
+
+As we tried deleting a Container which was in running state, so the docker daemon throws an error. We have to first stop the container and delete it.
+
+$ docker stop <container name>
+$ docker rm <container name>
+
+We can delete or remove all containers with a single command only.
+$ docker rm $(docker ps -aq)
+
+Kill a Container
+Killing a container stops its execution abruptly. You can do this using the docker kill command followed by the container's name or ID.
+docker kill <container-name-or-id>
+
+Difference between Docker Create, Docker Start And Docker Run
+Docker create command creates a new container from the specified image. However, it will not run the container immediately.
+
+Docker start command is used to start any stopped container. If we used the docker to create a command to create a container, then we can start it with this command.
+
+Docker run command is a combination of creating and start as it creates a new container and starts it immediately. In fact, the docker run command can even pull an image from Docker Hub if it doesn’t find the mentioned image on your system.
+
+Difference Between Docker Pause And Docker Stop container
+The docker pause command suspends all processes in the specified containers. Traditionally, when suspending a process the SIGSTOP signal is used, which is observable by the process being suspended. Also, the memory portion would be there while the container is paused and again the memory is used when the container is resumed.
+
+When we use the docker stop command, the main process inside the container receives SIGTERM signal, and after some time, SIGKILL. Also, it will release the memory used after the container is stopped.
+
+SIGTERM is the signal of termination. The intention is to kill the process, gracefully or not, but to first allow it a chance to clean up.
+SIGKILL is the kill signal. The only behaviour is to kill the process, immediately.
+SIGSTOP is the pause signal. The only behaviour is to pause the process. The shell uses pausing (and its counterpart, resuming via SIGCONT) to implement job control.
+
+docker run -d \
+  --name my_node_app \
+  --hostname my_node_app_host \
+  --network app-network \
+  --memory 512m \
+  --memory-reservation 256m \
+  --cpu-shares 512 \
+  --cpu-period 100000 \
+  --cpu-quota 50000 \
+  -p 8080:8080 \
+  -e NODE_ENV=production \
+  my-node-app-image:1.0@sha256:123abc456def789... \
+  npm start
+
+  Breakdown of Options
+Detached Mode (-d):
+
+-d: Runs the container in detached mode.
+Container Identification:
+
+--name my_node_app: Assigns a name to the container.
+--hostname my_node_app_host: Sets a custom hostname for the container.
+Network Settings:
+
+--network app-network: Connects the container to a custom network named app-network.
+Runtime Constraints on CPU and Memory:
+
+--memory 512m: Sets a hard limit of 512MB on the container's memory usage.
+--memory-reservation 256m: Sets a soft limit (reservation) of 256MB on the container's memory usage.
+--cpu-shares 512: Sets the relative CPU weight for the container (default is 1024).
+--cpu-period 100000: Specifies the CPU CFS (Completely Fair Scheduler) period.
+--cpu-quota 50000: Limits the container to 50% of the CPU.
+Port Mapping (-p):
+
+-p 8080:8080: Maps port 8080 of the container to port 8080 on the host.
+Environment Variables (-e):
+
+-e NODE_ENV=production: Sets the environment variable NODE_ENV to production.
+Image Name:
+
+my-node-app-image: The name of the Docker image to run.
+Detailed Explanation
+Detached Mode (-d): This option makes the container run in the background, allowing your terminal to be free for other commands.
+Container Identification: Naming the container and setting a hostname helps in managing and identifying containers easily, especially when running multiple containers.
+Network Settings: Using a custom network allows containers to communicate with each other within the same network and isolates them from other networks.
+CPU and Memory Constraints: These settings help in controlling the resource usage of the container, preventing it from consuming excessive resources and affecting other containers or the host system.
+Port Mapping: This option exposes container ports to the host system, allowing access to services running inside the container.
+Environment Variables: Environment variables are used to pass configuration settings to the container at runtime.

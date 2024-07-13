@@ -1,0 +1,9 @@
+mkdir node-express-mongodb-docker
+cd node-express-mongodb-docker
+npm init -y
+
+npm install express mongoose dotenv
+
+docker-compose up --build
+Once your containers are running, you can access your Node.js application at http://localhost:3000.
+

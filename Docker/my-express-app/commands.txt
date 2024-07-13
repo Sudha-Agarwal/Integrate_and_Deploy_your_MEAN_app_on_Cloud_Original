@@ -1,0 +1,7 @@
+docker build -t my-express-app .
+docker run -d -p 3000:3000 my-express-app
+
+#In the context of Docker commands, the dot (.) after specifying the image name (my-express-app) in docker build -t my-express-app . serves as the build context. Here’s what it signifies and why it’s necessary:
+
+Docker Build Context
+When you build a Docker image, you specify a build context. This context is the path on your local machine where the Dockerfile and any other files needed for the build process are located. The . represents the current directory, meaning Docker should look for the Dockerfile in the current directory and use all files there as part of the build context.

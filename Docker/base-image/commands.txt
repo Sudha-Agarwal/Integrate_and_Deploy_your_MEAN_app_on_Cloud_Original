@@ -1,0 +1,7 @@
+docker build -t my-simple-base .
+docker run my-simple-base
+
+
+BusyBox vs scratch: scratch is an empty image, while BusyBox provides a minimal environment with essential Unix tools. Using BusyBox or another minimal base image ensures that basic commands like cat are available.
+
+minimalistic scratch image you're using doesn't contain a standard Unix shell or basic utilities like cat, which are commonly found in larger Linux distributions.
