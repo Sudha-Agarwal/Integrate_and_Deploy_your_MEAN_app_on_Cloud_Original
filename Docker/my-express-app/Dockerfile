@@ -15,7 +15,7 @@ EXPOSE 3000
 # Define the entrypoint
 #ENTRYPOINT ["npm", "start"]
 
-#CMD ["node","app.js"]
+CMD ["node","app.js"]
 #ENTRYPOINT ["node","app.js"]
 
 #the effective default entry point and command for a container based on your Dockerfile would be:
@@ -25,7 +25,7 @@ EXPOSE 3000
 #This means that when you run a container using this image, Docker will start /bin/sh -c "node app.js" as the command. The /bin/sh -c shell is responsible for executing the command specified in CMD, which in your case is node app.js.
 
 #The ENTRYPOINT specifies a command that will always be executed when the container starts. The CMD specifies arguments that will be fed to the ENTRYPOINT.
-ENTRYPOINT ["node"]
+#ENTRYPOINT ["node"]
 
 #docker run my-express-app app1.js - Here, app1.js will override the CMD specified in the Dockerfile.
 

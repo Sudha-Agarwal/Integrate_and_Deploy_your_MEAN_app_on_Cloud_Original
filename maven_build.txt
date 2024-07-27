@@ -1,0 +1,110 @@
+To automate the build process using Jenkins and Maven, you'll need to follow these steps:
+
+Install Jenkins: Set up Jenkins on your server or local machine.
+Install Maven: Make sure Maven is installed on the machine where Jenkins is running.
+Configure Jenkins: Set up Jenkins to recognize your Maven installation.
+Create a Maven Project: Set up a Maven project with a pom.xml file.
+Create a Jenkins Job: Set up a Jenkins job to build your Maven project.
+Step 1: Install Jenkins
+You can download and install Jenkins from the official website. Follow the instructions for your specific operating system.
+
+Step 2: Install Maven
+Download Maven from the Apache Maven website and follow the installation instructions for your operating system.
+
+Step 3: Configure Jenkins to Recognize Maven
+Log in to Jenkins: Open your Jenkins dashboard.
+Manage Jenkins: Go to Manage Jenkins > Global Tool Configuration.
+Add Maven:
+Scroll down to the Maven section.
+Click Add Maven.
+Give it a name (e.g., Maven 3.8.6).
+Either provide the path to your Maven installation or let Jenkins install it automatically by selecting Install automatically.
+Step 4: Create a Maven Project
+Set up your project structure: Your project should follow the standard Maven directory structure.
+
+Create pom.xml: This file defines your project and its dependencies. Here’s an example:
+
+Step 5: Create a Jenkins Job
+Create New Item: On the Jenkins dashboard, click New Item.
+Enter Job Name: Give your job a name and select Freestyle project or Pipeline.
+Configure Job:
+Source Code Management:
+Select Git (or other SCM).
+Provide your repository URL and credentials if required.
+Build:
+If using a Freestyle project, add a Build Step and select Invoke top-level Maven targets.
+Enter your build goals (e.g., clean install).
+If using a Pipeline project, you can write a Jenkinsfile (see below for an example).
+Post-build Actions: Add any post-build steps like Archive the artifacts.
+Example Jenkinsfile for a Pipeline Project
+If you prefer to use a Pipeline project, create a Jenkinsfile in the root of your repository. Here’s an example:
+
+groovy
+Copy code
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.8.6' // Name you gave Maven in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-repo/your-project.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
+        }
+        success {
+            echo 'Build was successful!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
+Step-by-Step Jenkins Configuration for a Freestyle Project
+Create New Item:
+
+Click New Item on the Jenkins dashboard.
+Enter a name for your job (e.g., My Maven Project).
+Select Freestyle project and click OK.
+Configure Source Code Management:
+
+Under Source Code Management, select Git.
+Enter your repository URL (e.g., https://github.com/your-repo/your-project.git).
+If your repository is private, provide credentials.
+Configure Build:
+
+Under Build, click Add build step.
+Select Invoke top-level Maven targets.
+In the Goals field, enter clean install (or your desired Maven goals).
+Post-build Actions:
+
+Click Add post-build action.
+Select Archive the artifacts.
+Enter the path to your artifacts (e.g., **/target/*.jar).
+Save and Build:
+
+Click Save to save your job configuration.
+Click Build Now to start the build process.
